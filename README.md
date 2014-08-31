@@ -16,7 +16,7 @@ Example plunker: http://plnkr.co/edit/d59bhRjrXVnJVsCxPCXh?p=preview
 TODO:
 ----------
  * Beautify layouts.
- * Create one-js library bulder.
+ * Create one-js library builder.
  * Move php-side preview generation to js side.
 
 
