@@ -1,0 +1,52 @@
+<div class="loader" ng-show="styles.previewLoaderShow"></div>
+<textarea class="text" placeholder="{{options.placeholder}}" ng-model="input.text" ng-paste="input.actions.paste($event)" 
+          ng-keyup="input.actions.keyUp($event)" ng-keypress="input.actions.keyPress($event)"></textarea> 
+
+<div class="preview" ng-show="styles.previewShow"> 
+
+    <!--make current image is 0 by default and manage it on-click-->
+    <div class="previewImage" ng-show="crawl.images && !styles.disableThumb">
+        <div ng-repeat="image in crawl.images track by $index">
+            <a ng-href="{{crawl.pageUrl}}" target="_blank" ng-show="isActiveImage($index)">
+                <img src="{{image}}" alt="crawl.title" class="previewImage">
+            </a>
+        </div>
+
+    </div> 
+
+    <div ng-class="previewContentClass"> 
+        <div title="Remove" class="closePreview closeImage" ng-click="removePreview()"></div> 
+        <div class="previewTitle">
+            <span class="previewSpanTitle">{{crawl.title}}</span>
+            <input type="text" ng-value="{{crawl.title}}" class="previewInputTitle" style="display: none;">
+        </div> 
+        <div class="previewUrl">{{crawl.url}}</div> 
+        <div class="previewDescription">
+            <span class="previewSpanDescription" style="display: inline;">{{crawl.description}}</span>
+            <textarea id="previewInputDescription_lp1" class="previewInputDescription" style="display: none;">{{crawl.description}}</textarea>
+        </div> 
+
+        <div ng-show="crawl.images">
+            <div class="previewButtons" ng-show="!styles.disableThumb"> 
+                <div class="selectionButtons buttonLeftActive" ng-click="previousImageAction()"> </div> 
+                <div class="selectionButtons buttonRightActive" ng-click="nextImageAction()"></div> 
+                <div class="photoNumbers">{{activeImage + 1}} of {{crawl.images.length}}</div> 
+                <div class="chooseThumbnail"> Choose a thumbnail </div>
+            </div> 
+            <div class="nT"> 
+                <span class="noThumbDiv">
+                    <input type="checkbox" class="noThumb noThumbCb" ng-model="styles.disableThumb">  
+                    No thumbnail
+                </span> 
+            </div> 
+        </div>
+    </div> 
+</div>
+
+
+<div style="clear: both"></div>
+<div  class="postPreview"> 
+    <input class="postPreviewButton" type="submit" value="Post" ng-click="submitPost()"/> 
+    <div style="clear: both"></div> 
+</div> 
+<div class="previewPostedList" ></div>
