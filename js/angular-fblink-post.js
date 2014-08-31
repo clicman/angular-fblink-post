@@ -1,3 +1,8 @@
+/*
+* Author: Viktor Sidochenko viktor.sidochenko@gmail.com
+* Licensed to GPL v.3
+*/
+
 angular.module('fblink-post', [])
         .controller('AngularFblinkPostController', function($scope, $http) {
             $scope.styles = {
