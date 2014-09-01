@@ -10,7 +10,7 @@ Features:
  * Link preview in post.
  * Video embedding.
  
-Example plunker: http://plnkr.co/edit/d59bhRjrXVnJVsCxPCXh?p=preview
+Example plunker: http://plnkr.co/edit/DpWrFvBJw2gRPjXqHFJd?p=preview
 
 
 TODO:
