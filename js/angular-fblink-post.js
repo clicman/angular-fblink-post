@@ -1,9 +1,20 @@
 /*
-* Author: Viktor Sidochenko viktor.sidochenko@gmail.com
-* Licensed to GPL v.3
-*/
+ * Author: Viktor Sidochenko viktor.sidochenko@gmail.com
+ * Licensed to GPL v.3
+ */
 
 angular.module('fblink-post', [])
+        .controller('AngularFblinkPostsController', function($scope, $sce) {
+            $scope.post.iframe = $sce.trustAsHtml($scope.post.iframe);
+
+            $scope.iframeStyle = {'display': 'none'};
+
+            $scope.iframize = function() {
+                $scope.videoPlayStyle = {'display': 'none'};
+                $scope.iframeStyle = {'display': 'block', 'width': '100%'};
+                $scope.imageStyle = {'display': 'none'};
+            };
+        })
         .controller('AngularFblinkPostController', function($scope, $http) {
             $scope.styles = {
                 previewLoaderShow: false,
@@ -166,16 +177,16 @@ angular.module('fblink-post', [])
         },
         templateUrl: 'angular-fblink-post/templates/input-layout.html'
     };
-        }).directive('fbpostsLayout', function() {            
+}).directive('fbpostsLayout', function() {
     return {
-        restrict: 'E',                 
+        restrict: 'E',
         controller: 'AngularFblinkPostController',
         scope: {
             posts: '='
         },
         templateUrl: 'angular-fblink-post/templates/posts-layout.html'
     };
-        });
+});
 
 
 
