@@ -55,7 +55,7 @@ TODO:
 All of these post attributes must be initialized.
     
 ## Server Side
- * Use php crawl($text) for preview data generation.
+ * Use php \FbLink\LinkPreview()->crawl($text); for preview data generation.
  * Create your own methods for storing and creating posts in database.
 
 
