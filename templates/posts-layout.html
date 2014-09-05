@@ -1,22 +1,27 @@
 <div ng-repeat="post in posts">
-    <div class="previewPosted" ng-controller="AngularFblinkPostsController">
+    <div class="previewPosted" ng-controller="AngularFblinkPostsController"  style="padding: 5px;">
         <div class="previewTextPosted">
             {{post.text}}
         </div>
-        <div class="previewTitlePosted">
-            <a href="{{post.url}}" target="_blank">
-                {{post.title}}
-            </a>
-        </div>    
-        <div ng-if="post.iframe" ng-bind-html="post.iframe" ng-style="iframeStyle"></div>
-        <a ng-if="!post.iframe && post.image" href="{{post.url}}" target="_blank">
-            <img src="{{post.image}}" alt="{{post.title}}" class="imgIframe previewImage">
-        </a>        
-        <div ng-if="post.iframe"  class="imgIframe">
-            <img src="{{post.image}}" ng-click="iframize()" class="previewImage" ng-style="imageStyle">
-            <span class="videoPostPlay" ng-click="iframize()" ng-style="videoPlayStyle"></span>
+        <div ng-if="post.image">
+            <img src="{{post.image}}" alt="image" style="width:100%">
         </div>
-        <div class="previewUrlPosted">{{post.canonicalUrl}}</div>
-        {{post.description}}
+        <div ng-if="post.link">
+            <div class="previewTitlePosted">
+                <a href="{{post.link.url}}" target="_blank">
+                {{post.link.title}}
+                </a>
+            </div>
+            <div ng-if="post.link.iframe" ng-bind-html="post.link.iframe" ng-style="iframeStyle"></div>
+            <a ng-if="!post.link.iframe && post.link.image" href="{{post.link.url}}" target="_blank">
+            <img src="{{post.link.image}}" alt="{{post.link.title}}" class="imgIframe previewImage">
+            </a>
+            <div ng-if="post.link.iframe"  class="imgIframe">
+                <img src="{{post.link.image}}" ng-click="iframize()" class="previewImage" ng-style="imageStyle">
+                <span class="videoPostPlay" ng-click="iframize()" ng-style="videoPlayStyle"></span>
+            </div>
+            <div class="previewUrlPosted">{{post.link.canonicalUrl}}</div>
+            {{post.link.description}}
+        </div>
     </div>
 </div>

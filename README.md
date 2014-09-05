@@ -44,12 +44,15 @@ TODO:
 
             posts : [
               text,
-              url,
-              title,
               image,
-              iframe,
-              canonicalUrl,
-              description
+              link: {
+                url,
+                title,
+                image,
+                iframe,
+                canonicalUrl,
+                description
+                }
             ];
             
 All of these post attributes must be initialized.

@@ -155,14 +155,14 @@ angular.module('fblink-post', [])
                             iframe: $scope.crawl.videoIframe || ""
                         }
                     });
-                    var post = $scope.crawl;
+                    var post = {};
+                    post.link = $scope.crawl;
                     post.text = $scope.input.text;
-                    post.image = image;
+                    post.link.image = image;
 
                     $scope.input.text = "";
                     $scope.removePreview();
                     isBlockedForPosting = false;
-
                     $scope.$parent.posts.unshift(post);
                 }
             };
