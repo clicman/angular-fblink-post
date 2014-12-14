@@ -2,6 +2,7 @@
 
 namespace \FbLink;
 
+use DOMDocument;
 use \FbLink\Regex;
 use \FbLink\Url;
 
@@ -109,23 +110,32 @@ class Content {
     static function getMetaTags($contents) {
         $result = false;
         $metaTags = array("url" => "", "title" => "", "description" => "", "image" => "");
-
         if (isset($contents)) {
-
-            preg_match_all(Regex::$metaRegex, $contents, $match);
-
-            foreach ($match[1] as $value) {
-
-                if ((strpos($value, 'property="og:url"') !== false || strpos($value, "property='og:url'") !== false) || (strpos($value, 'name="url"') !== false || strpos($value, "name='url'") !== false))
-                    $metaTags["url"] = self::separeMetaTagsContent($value);
-                else if ((strpos($value, 'property="og:title"') !== false || strpos($value, "property='og:title'") !== false) || (strpos($value, 'name="title"') !== false || strpos($value, "name='title'") !== false))
-                    $metaTags["title"] = self::separeMetaTagsContent($value);
-                else if ((strpos($value, 'property="og:description"') !== false || strpos($value, "property='og:description'") !== false) || (strpos($value, 'name="description"') !== false || strpos($value, "name='description'") !== false))
-                    $metaTags["description"] = self::separeMetaTagsContent($value);
-                else if ((strpos($value, 'property="og:image"') !== false || strpos($value, "property='og:image'") !== false) || (strpos($value, 'name="image"') !== false || strpos($value, "name='image'") !== false))
-                    $metaTags["image"] = self::separeMetaTagsContent($value);
+            $doc = new DOMDocument('1.0', 'utf-8');
+            @$doc->loadHTML($contents);
+            $metas = $doc->getElementsByTagName('meta');
+            for ($i = 0; $i < $metas->length; $i++) {
+                $meta = $metas->item($i);
+                if ($meta->getAttribute('name') == 'description')
+                    $metaTags["description"] = $meta->getAttribute('content');
+                if ($meta->getAttribute('name') == 'keywords')
+                    $metaTags["keywords"] = $meta->getAttribute('content');
+                if ($meta->getAttribute('property') == 'og:title')
+                    $metaTags["title"] = $meta->getAttribute('content');
+                if ($meta->getAttribute('property') == 'og:image')
+                    $metaTags["image"] = $meta->getAttribute('content');
+                if ($meta->getAttribute('property') == 'og:description')
+                    $metaTags["og_description"] = $meta->getAttribute('content');
+                if ($meta->getAttribute('property') == 'og:url')
+                    $metaTags["url"] = $meta->getAttribute('content');
             }
-
+            if (!empty($metaTags["og_description"])) {
+                $metaTags["description"] = $metaTags["og_description"];
+            }
+            if (empty($metaTags["title"])) {
+                $nodes = $doc->getElementsByTagName('title');
+                $metaTags["title"] = $nodes->item(0)->nodeValue;
+            }
             $result = $metaTags;
         }
         return $result;
